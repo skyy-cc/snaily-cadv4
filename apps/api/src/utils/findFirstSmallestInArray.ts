@@ -1,13 +1,11 @@
 /**
- * find the first smallest missing item from an array
+ * Find the first smallest missing integer from an array.
  */
 export function findFirstSmallestInArray(numbers: number[]) {
-  const sorted = numbers.sort((a, b) => a - b);
+  const numberSet = new Set(numbers.filter(num => num > 0));
   let int = 1;
-
-  for (let i = 0; i < sorted.length; i++) {
-    if (sorted[i] === int) int++;
+  while (numberSet.has(int)) {
+    int++;
   }
-
   return int;
 }
