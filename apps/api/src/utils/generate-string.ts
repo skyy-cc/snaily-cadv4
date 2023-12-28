@@ -10,16 +10,19 @@ export const LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
 export function generateString(length: number, options?: Options) {
   const { type = "all", extraChars = "" } = options ?? {};
-  const alphabet = [];
+  let alphabet = '';
 
-  if (type === "numbers-only") {
-    alphabet.push(...NUMBERS);
-  } else if (type === "letters-only") {
-    alphabet.push(...LETTERS);
-  } else {
-    alphabet.push(...NUMBERS, ...LETTERS);
+  switch (type) {
+    case "numbers-only":
+      alphabet = NUMBERS;
+      break;
+    case "letters-only":
+      alphabet = LETTERS;
+      break;
+    default:
+      alphabet = NUMBERS + LETTERS;
   }
 
-  const generate = customAlphabet([...alphabet, extraChars].join(""));
+  const generate = customAlphabet(alphabet + extraChars);
   return generate(length);
 }
