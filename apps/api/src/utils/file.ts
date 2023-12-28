@@ -12,16 +12,16 @@ export function parseImportFile(file: PlatformMulterFile | undefined) {
   }
 
   const rawBody = file.buffer.toString("utf8").trim();
-  let body = null;
+  let body;
 
   try {
     body = JSON.parse(rawBody);
   } catch {
-    body = null;
+    throw new BadRequest("couldNotParseBody");
   }
 
   if (!body) {
-    throw new BadRequest("couldNotParseBody");
+    throw new BadRequest("EmptyBody");
   }
 
   return body;
